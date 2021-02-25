@@ -10,6 +10,16 @@ end
 require_relative 'lib/product'
 require_relative 'lib/film'
 require_relative 'lib/book'
+require_relative 'lib/collection_product'
 
-leon = Film.new(price: 990, amount: 5)
-puts "Фильм Леон стоит #{leon.price} руб."
+collection = CollectionProduct.from_dir("#{__dir__}/data")
+
+# Сортируем продукты по возрастанию цены с помощью метода sort! экземпляра
+# класса ProductCollection
+collection.sort!(by: :title)
+
+# Получаем массив продуктов методом to_a и выводим каждый на экран, передавая
+# его методу puts в качестве аргумента.
+collection.to_a.each do |product|
+  puts product
+end
