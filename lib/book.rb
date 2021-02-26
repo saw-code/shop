@@ -8,8 +8,8 @@ class Book < Product
       title: lines[0],
       genre: lines[1],
       author: lines[2],
-      price: lines[3],
-      amount: lines[4]
+      price: lines[3].to_i,
+      amount: lines[4].to_i
     )
   end
 
