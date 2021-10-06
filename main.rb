@@ -1,22 +1,13 @@
-if Gem.win_platform?
-  Encoding.default_external = Encoding.find(Encoding.locale_charmap)
-  Encoding.default_internal = __ENCODING__
-
-  [STDIN, STDOUT].each do |io|
-    io.set_encoding(Encoding.default_external, Encoding.default_internal)
-  end
-end
-
 require_relative 'lib/product'
 require_relative 'lib/film'
 require_relative 'lib/book'
 require_relative 'lib/disk'
 require_relative 'lib/collection_product'
+require_relative 'lib/basket'
 
 collection = CollectionProduct.from_dir("#{__dir__}/data")
 collection.sort!(by: :price)
-
-basket = []
+basket = Basket.new
 total_price = 0
 
 loop do
@@ -32,20 +23,33 @@ loop do
 
   user_input = STDIN.gets.to_i
   break if user_input == 0
+  user_input -= 1
 
-  price = collection.to_a.map { |element| element.price }
-  collection.to_a[user_input - 1].amount -= 1
-  basket << collection.to_a[user_input - 1]
+  product = collection.to_a[user_input]
 
+  if product.amount.positive?
+    basket.add(product)
+    total_price = basket.total_price
+    product.amount -= 1
 
-  puts "Вы выбрали: #{collection.to_a[user_input - 1]}"
-  puts "Всего товаров на сумму: #{total_price += price[user_input - 1]}"
+    puts "Вы выбрали: #{product}"
+    puts "В вашей корзине сейчас:"
+    puts basket.products
+    puts "Всего товаров на сумму: #{total_price}"
+    if product.amount.zero?
+      puts "Товар закончился"
+      collection.to_a.delete(product)
+    end
+  end
 
-  puts
+  if collection.to_a.empty?
+    puts "Вы купили вообще все. Ничего больше нет"
+    break
+  end
 end
 
-puts "Вы купили:"
+puts "Итого, вы купили:"
 puts
-puts basket
+puts basket.products
 puts
 puts "С Вас - #{total_price} руб. Спасибо за покупку"
