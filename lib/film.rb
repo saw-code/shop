@@ -23,6 +23,10 @@ class Film < Product
     @director = params[:director]
   end
 
+  def showcase
+    "Фильм #{@title}, #{@year}, реж. #{@director}, #{super}"
+  end
+
   def to_s
     "Фильм #{@title}, #{@year}, реж. #{@director}, #{super}"
   end

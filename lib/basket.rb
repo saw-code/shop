@@ -6,6 +6,7 @@ class Basket
   end
 
   def add(product)
+    product.count += 1
     @products << product
   end
 

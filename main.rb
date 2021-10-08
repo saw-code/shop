@@ -15,13 +15,21 @@ loop do
   puts
 
   collection.to_a.each_with_index do |product, index|
-    puts "#{index + 1}. #{product}"
+    puts "#{index + 1}. #{product} (осталось #{product.amount})"
   end
+
   puts
   puts "0. Выход"
   puts
 
   user_input = STDIN.gets.to_i
+  collection_size = collection.to_a.size
+
+  while user_input > collection_size || user_input.negative?
+    print "введите верный номер товара: "
+    user_input = STDIN.gets.to_i
+  end
+
   break if user_input == 0
   user_input -= 1
 
@@ -31,11 +39,13 @@ loop do
     basket.add(product)
     total_price = basket.total_price
     product.amount -= 1
+    puts "Вы выбрали: #{product.showcase}"
 
-    puts "Вы выбрали: #{product}"
     puts "В вашей корзине сейчас:"
-    puts basket.products
+    puts basket.products.uniq
+
     puts "Всего товаров на сумму: #{total_price}"
+
     if product.amount.zero?
       puts "Товар закончился"
       collection.to_a.delete(product)
@@ -50,6 +60,6 @@ end
 
 puts "Итого, вы купили:"
 puts
-puts basket.products
+puts basket.products.uniq
 puts
 puts "С Вас - #{total_price} руб. Спасибо за покупку"

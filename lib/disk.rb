@@ -13,15 +13,19 @@ class Disk < Product
     )
   end
 
-  attr_accessor :album_title, :executor, :genre, :year
+  attr_accessor :album_title, :artist, :genre, :year
 
   def initialize(params)
     super
 
     @album_title = params[:album_title]
-    @artist = params[:executor]
+    @artist = params[:artist]
     @genre = params[:genre]
     @year = params[:year]
+  end
+
+  def showcase
+    "Альбом #{@album_title}, #{@year}, исполнитель #{@artist}, жанр #{@genre}, #{super}"
   end
 
   def to_s

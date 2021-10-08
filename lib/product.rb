@@ -1,13 +1,22 @@
 class Product
-  attr_accessor :price, :amount
+  attr_accessor :price, :amount, :count
 
   def initialize(params)
     @price = params[:price]
     @amount = params[:amount]
+    @count = 0
+  end
+
+  def showcase
+    "#{@price} руб."
   end
 
   def to_s
-    "#{@price} руб."
+    if @count.positive?
+      "#{@price} руб. x #{@count} = #{@count * @price}"
+    else
+      "#{@price} руб."
+    end
   end
 
   def update(params)
@@ -18,5 +27,4 @@ class Product
   def self.from_file(path)
     raise NotImplementedError
   end
-
 end
