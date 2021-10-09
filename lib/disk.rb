@@ -24,10 +24,6 @@ class Disk < Product
     @year = params[:year]
   end
 
-  def showcase
-    "Альбом #{@album_title}, #{@year}, исполнитель #{@artist}, жанр #{@genre}, #{super}"
-  end
-
   def to_s
     "Альбом #{@album_title}, #{@year}, исполнитель #{@artist}, жанр #{@genre}, #{super}"
   end

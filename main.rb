@@ -25,7 +25,7 @@ loop do
   user_input = STDIN.gets.to_i
   collection_size = collection.to_a.size
 
-  while user_input > collection_size || user_input.negative?
+  until user_input.between?(0, collection_size)
     print "введите верный номер товара: "
     user_input = STDIN.gets.to_i
   end
@@ -39,10 +39,11 @@ loop do
     basket.add(product)
     total_price = basket.total_price
     product.amount -= 1
-    puts "Вы выбрали: #{product.showcase}"
+
+    puts "Вы выбрали: #{product}"
 
     puts "В вашей корзине сейчас:"
-    puts basket.products.uniq
+    puts basket
 
     puts "Всего товаров на сумму: #{total_price}"
 
@@ -60,6 +61,6 @@ end
 
 puts "Итого, вы купили:"
 puts
-puts basket.products.uniq
+puts basket
 puts
 puts "С Вас - #{total_price} руб. Спасибо за покупку"

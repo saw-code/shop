@@ -1,22 +1,13 @@
 class Product
-  attr_accessor :price, :amount, :count
+  attr_accessor :price, :amount
 
   def initialize(params)
     @price = params[:price]
     @amount = params[:amount]
-    @count = 0
-  end
-
-  def showcase
-    "#{@price} руб."
   end
 
   def to_s
-    if @count.positive?
-      "#{@price} руб. x #{@count} = #{@count * @price}"
-    else
-      "#{@price} руб."
-    end
+    "#{@price} руб."
   end
 
   def update(params)

@@ -23,10 +23,6 @@ class Book < Product
     @author = params[:author]
   end
 
-  def showcase
-    "Книга «#{@title}», #{@genre}, автор — #{@author}, #{super}"
-  end
-
   def to_s
     "Книга «#{@title}», #{@genre}, автор — #{@author}, #{super}"
   end

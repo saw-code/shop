@@ -6,11 +6,17 @@ class Basket
   end
 
   def add(product)
-    product.count += 1
     @products << product
   end
 
   def total_price
     @products.sum(&:price)
+  end
+
+  def to_s
+    @products.uniq.map do |product|
+      "#{product} #{@products.count(product)} x #{@products.count(product) * product.price}"
+    end
+    .join("\n")
   end
 end
