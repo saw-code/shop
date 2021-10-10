@@ -14,9 +14,9 @@ class Basket
   end
 
   def to_s
-    @products.uniq.map do |product|
-      "#{product} #{@products.count(product)} x #{@products.count(product) * product.price}"
-    end
-    .join("\n")
+    @products.
+      tally.
+      map { |product, amount| "#{product} #{amount} x #{amount * product.price}" }.
+      join("\n")
   end
 end
